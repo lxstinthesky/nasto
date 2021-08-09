@@ -1,0 +1,3 @@
+C:/Users/ATLAS/Nextcloud/4. Semester/Computerphysik/nasto/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/ATLAS/Nextcloud/4. Semester/Computerphysik/nasto/cmake-build-debug/CMakeFiles/nasto.dir
+C:/Users/ATLAS/Nextcloud/4. Semester/Computerphysik/nasto/cmake-build-debug/CMakeFiles/rebuild_cache.dir
