@@ -3,14 +3,13 @@
  * Solving navier-stokes-equation as mentioned in Demtröder 1 p. 227 equ. 8.35a
 */
 
-
 #include <iostream>
 #include <cmath>
 #include <fstream>
 
 //physical variable declaration here
-#define ETA 1
-#define RHO 1
+#define ETA 1 //viscosity
+#define RHO 1 //density
 
 using namespace std;
 
