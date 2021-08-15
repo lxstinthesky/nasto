@@ -1,7 +1,6 @@
 /*
  * Authors: Raphael, Paul, Henrik
  * solving navier-stokes-equation as mentioned in Demtröder 1 p. 227 equ. 8.35a
- * solving using lax-wendorff-method
 */
 
 #include <iostream>
