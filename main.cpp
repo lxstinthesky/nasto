@@ -1,10 +1,16 @@
+/*
+ * Authors: Raphael, Paul, Henrik
+ * Solving navier-stokes-equation as mentioned in Demtröder 1 p. 227 equ. 8.35a
+*/
+
+
 #include <iostream>
 #include <cmath>
 #include <fstream>
 
-/*
-Solving navier-stokes-equation as mentioned in Demtröder 1 p. 227 equ. 8.35a
-*/
+//physical variable declaration here
+#define ETA 1
+#define RHO 1
 
 using namespace std;
 
