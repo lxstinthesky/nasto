@@ -25,4 +25,4 @@ int main() {
 
 //auxiliary function implementation here
 
-//henrik kannst du des jetzt auch sehen?
+//kannst du des jetzt auch sehen?
