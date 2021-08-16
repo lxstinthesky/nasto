@@ -10,6 +10,7 @@
 //physical variable declaration here
 #define ETA 1 //viscosity
 #define RHO 1 //density
+#define ZETA 1
 
 using namespace std;
 
