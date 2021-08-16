@@ -25,4 +25,4 @@ int main() {
 
 //auxiliary function implementation here
 
-//jpo henrik kannst du des jetzt auch sehen?
+//jo henrik kannst du des jetzt auch sehen?
