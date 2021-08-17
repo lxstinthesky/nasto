@@ -4,9 +4,9 @@ def get_cols(file):
     y = []
     z = []
     for line in file:
-        t.append(float(line.split(",")[0]))
-        x.append(float(line.split(",")[1]))
-        #y.append(float(line.split(" ")[2]))
+        t.append(float(line.split(";")[0]))
+        x.append(float(line.split(";")[1]))
+        y.append(float(line.split(";")[2]))
         #z.append(float(line.split(";")[3]))
     return t, x, y, z
 
