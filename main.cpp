@@ -72,5 +72,3 @@ void init(){
         File << 0 << ";" << i << ";" << psi[0][i] << endl;
     }
 }
-
-//kannst du des jetzt auch sehen??
