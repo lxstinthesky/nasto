@@ -58,7 +58,7 @@ void init(){
     //setting bottom and upper edge
     for(i = 0; i < NUM+1; i++) {
         psi[i][0] = 1;
-        psi[i][NUM] = 1;
+        psi[i][NUM] = 0;
 
         File << i << ";" << 0 << ";" << psi[i][0] << endl;
         File << i << ";" << NUM << ";" << psi[i][NUM] << endl;
@@ -67,6 +67,7 @@ void init(){
 
 void jacobi () {
     int i, j, k;
+
     do {
         error = 0.0;
         for (i = 1; i < NUM; i++) {
@@ -80,7 +81,9 @@ void jacobi () {
             }}
         error /= NUM*NUM;
         k++;
+
     } while (error > 1.e-9 && k < 1000);
+    error /= NUM*NUM;
 
     for(i = 0; i < NUM+1; i++){
         for(j = 0; j < NUM+1; j++){
