@@ -45,9 +45,17 @@ int main() {
 void init(){
     for(int i = 0; i < NUM+1; i++){
         for(int j = 0; j < NUM+1; j++){
-            psi[i][j] = i*i-j;
+            psi[i][j] = 0;
+        }
+    }
+    for(int i = 0; i < NUM+1; i++){
+        psi[i][0] = 1;
+    }
+    for(int i = 0; i < NUM+1; i++){
+        for(int j = 0; j < NUM+1; j++){
             psin[i][j] = psi[i][j];
-            Filet << i << ";" << j << ";" << psi[i][j] << endl;
+            Filet << i << ";" << j << ";" << psi[i][j] << ";"<< 0 << ";" << 0 << endl;
+            File << i << ";" << j << ";" << psi[i][j] << ";"<< 0 << ";" << 0 << endl;
         }
     }
 
@@ -73,6 +81,8 @@ void init(){
 
 void jacobi () {
     int i, j, k;
+    double u, v;
+    double a, r;
     k = 0;
 
     do {
@@ -92,9 +102,15 @@ void jacobi () {
     } while (error > 1.e-9 && k < 10000);
     error /= NUM*NUM;
 
-    for(i = 0; i < NUM+1; i++){
-        for(j = 0; j < NUM+1; j++){
-            File << i << ";" << j << ";" << psin[i][j] << endl;
+    for(i = 1; i < NUM; i++){
+        for(j = 1; j < NUM; j++){
+            u = (psin[i][j+1] - psi[i][j-1])/2;
+            v = -(psin[i+1][j] - psi[i-1][j])/2;
+            a = atan(v/u);
+            r = sqrt(u*u + v*v);
+            File << i << ";" << j << ";" << psin[i][j] << ";" << a << ";" << r << endl;
         }
     }
 }
+
+
