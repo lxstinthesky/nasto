@@ -1,5 +1,5 @@
 /*
- * Authors: Raphael, Paul, Henrik
+ * Authors: Raphael, Paul, Henrik Saftig
  * solving navier-stokes-equation as mentioned in Demtröder 1 p. 227 equ. 8.35a
 */
 
