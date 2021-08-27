@@ -43,10 +43,11 @@ void init(){
     int i, j;
     for(i = 0; i < NUM+1; i++){
         for(j = 0; j < NUM+1; j++){
-            psi[i][j] = 0;
+            psi[i][j] = exp(-i*i-(j-2)*(j-2)) - exp(-i*i-(j+2)*(j-2));
         }
     }
 
+    /*
     //setting right and left edge
     for(i = 0; i < NUM+1; i++){
         psi[NUM][i] = 0;
@@ -63,6 +64,7 @@ void init(){
         File << i << ";" << 0 << ";" << psi[i][0] << endl;
         File << i << ";" << NUM << ";" << psi[i][NUM] << endl;
     }
+    */
 }
 
 void jacobi () {
