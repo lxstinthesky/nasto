@@ -10,7 +10,7 @@
 //physical variable declaration here
 #define ETA 1 //viscosity
 #define RHO 1 //density
-#define NUM 100 //SHOULD BE EVEN NUMBER
+#define NUM 100
 
 using namespace std;
 
@@ -48,6 +48,7 @@ void init(){
             psi[i][j] = 0;
         }
     }
+
     for(int i = 0; i < NUM+1; i++){
         psi[i][0] = 1;
     }
@@ -81,8 +82,8 @@ void init(){
 
 void jacobi () {
     int i, j, k;
-    double u, v;
-    double a, r;
+    double u, v; //x and y component of velocity
+    double a, r; //polar coordinates for velocity - required for origin
     k = 0;
 
     do {
@@ -102,6 +103,7 @@ void jacobi () {
     } while (error > 1.e-9 && k < 10000);
     error /= NUM*NUM;
 
+    //calculating velocity and writing data to file
     for(i = 1; i < NUM; i++){
         for(j = 1; j < NUM; j++){
             u = (psin[i][j+1] - psi[i][j-1])/2;
