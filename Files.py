@@ -1,14 +1,16 @@
 def get_cols(file):
-    t = []
     x = []
     y = []
-    z = []
+    p = []
+    u = []
+    v = []
     for line in file:
-        t.append(float(line.split(";")[0]))
-        x.append(float(line.split(";")[1]))
-        y.append(float(line.split(";")[2]))
-        #z.append(float(line.split(";")[3]))
-    return t, x, y, z
+        x.append(float(line.split(";")[0]))
+        y.append(float(line.split(";")[1]))
+        p.append(float(line.split(";")[2]))
+        u.append(float(line.split(";")[3]))
+        v.append(float(line.split(";")[4].split("\n")[0]))
+    return x, y, p, u, v
 
 
 def offset(vector, off):
@@ -20,4 +22,4 @@ def offset(vector, off):
 class Solution:
     def __init__(self, path):
         self.file = open(path, "r")
-        self.t, self.x, self.y, self.z = get_cols(self.file)
+        self.x, self.y, self.p, self.u, self.v = get_cols(self.file)

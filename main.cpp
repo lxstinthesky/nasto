@@ -43,15 +43,19 @@ int main() {
 
 //auxiliary function implementation here
 void init(){
-    for(int i = 0; i < NUM+1; i++){
-        for(int j = 0; j < NUM+1; j++){
-            psi[i][j] = 0;
+    /*
+    for(double i = 0; i < NUM+1; i++){
+        for(double j = 0; j < NUM+1; j++){
+            psi[(int) i][(int) j] = exp((-(i-50)*(i-50)-(j-50)*(j-50))/100);
         }
     }
-
+     */
     for(int i = 0; i < NUM+1; i++){
         psi[i][0] = 1;
+        psi[i][NUM] = 1;
     }
+
+
     for(int i = 0; i < NUM+1; i++){
         for(int j = 0; j < NUM+1; j++){
             psin[i][j] = psi[i][j];
@@ -85,11 +89,15 @@ void jacobi () {
     double u, v; //x and y component of velocity
     double a, r; //polar coordinates for velocity - required for origin
     k = 0;
+    /*
+     * psin[i][j] = 1.0/4.0*(psi[i + 1][j] + psin[i - 1][j] + psi[i][j + 1] + psin[i][j - 1]);
+        error += abs(psin[i][j] - psi[i][j]);
+     */
 
     do {
         error = 0.0;
-        for (i = 1; i < NUM; i++) {
-            for (j = 1; j < NUM; j++) {
+        for (j = 1; j < NUM; j++) {
+            for (i = 1; i < NUM; i++) {
                 psin[i][j] = 1.0/4.0*(psi[i + 1][j] + psin[i - 1][j] + psi[i][j + 1] + psin[i][j - 1]);
                 error += abs(psin[i][j] - psi[i][j]);
             }}
@@ -106,11 +114,11 @@ void jacobi () {
     //calculating velocity and writing data to file
     for(i = 1; i < NUM; i++){
         for(j = 1; j < NUM; j++){
-            u = (psin[i][j+1] - psi[i][j-1])/2;
-            v = -(psin[i+1][j] - psi[i-1][j])/2;
+            v = -(psin[i][j+1] - psi[i][j-1])/2;
+            u = -(psin[i+1][j] - psi[i-1][j])/2;
             a = atan(v/u);
             r = sqrt(u*u + v*v);
-            File << i << ";" << j << ";" << psin[i][j] << ";" << a << ";" << r << endl;
+            File << i << ";" << j << ";" << psin[i][j] << ";" << u << ";" << v << endl;
         }
     }
 }

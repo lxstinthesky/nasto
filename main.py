@@ -2,13 +2,19 @@ from Files import Solution
 import matplotlib.pyplot as plt
 import numpy as np
 
-data = Solution("cmake-build-debug//spiral.dat")
+data = Solution("cmake-build-debug//data.dat")
 
-for line in data:
-    print(line)
+skip=(slice(None,None,4))
+nrm = plt.Normalize(vmax=100)
 
-plt.scatter(data.t, data.x, c=data.y, marker=",")
-plt.plot(1, 0, "mx", label="Magnet 1")
+color=[]
+for x in data.p:
+    color.append(x)
+
+#nrm.autoscale(data.p)
+plt.scatter(data.x, data.y, c=color, cmap="GnBu")
+plt.show()
+plt.quiver(data.x[skip], data.y[skip], data.u[skip], data.v[skip])
 
 plt.show()
 
