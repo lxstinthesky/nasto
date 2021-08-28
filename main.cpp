@@ -52,7 +52,6 @@ void init(){
      */
     for(int i = 0; i < NUM+1; i++){
         psi[i][0] = 1;
-        psi[i][NUM] = 1;
     }
 
 
