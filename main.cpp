@@ -10,7 +10,7 @@
 //physical variable declaration here
 #define ETA 1 //viscosity
 #define RHO 1 //density
-#define NUM 100
+#define NUM 10
 
 using namespace std;
 
@@ -19,10 +19,15 @@ using namespace std;
 //double psi[NUM + 1][NUM + 1];
 double error , psi[NUM + 1][NUM + 1]={{0}} , psin[NUM + 1][NUM + 1];
 
+double speed[NUM+1][2*(NUM+1)] = {{0}};
+
 //function declarations here
 void init();
 void jacobi();
-
+double omega(double, double);
+double integration(double, double);
+void convert();
+void set_speed();
 
 ofstream File;
 ofstream Filet;
@@ -43,44 +48,16 @@ int main() {
 
 //auxiliary function implementation here
 void init(){
-    /*
-    for(double i = 0; i < NUM+1; i++){
-        for(double j = 0; j < NUM+1; j++){
-            psi[(int) i][(int) j] = exp((-(i-50)*(i-50)-(j-50)*(j-50))/100);
-        }
-    }
-     */
-    for(int i = 0; i < NUM+1; i++){
-        psi[i][0] = 1;
-    }
-
+    set_speed();
+    convert();
 
     for(int i = 0; i < NUM+1; i++){
         for(int j = 0; j < NUM+1; j++){
             psin[i][j] = psi[i][j];
-            Filet << i << ";" << j << ";" << psi[i][j] << ";"<< 0 << ";" << 0 << endl;
-            File << i << ";" << j << ";" << psi[i][j] << ";"<< 0 << ";" << 0 << endl;
+            Filet << i << ";" << j << ";" << psi[i][j] << ";"<< speed[i][2*j] << ";" << speed[i][2*j+1] << endl;
+            File << i << ";" << j << ";" << psi[i][j] << ";"<< speed[i][2*j] << ";" << speed[i][2*j+1] << endl;
         }
     }
-
-    /*
-    //setting right and left edge
-    for(i = 0; i < NUM+1; i++){
-        psi[NUM][i] = 0;
-        psi[0][i] = 0;
-
-        File << NUM << ";" << i << ";" << psi[NUM][i] << endl;
-        File << 0 << ";" << i << ";" << psi[0][i] << endl;
-    }
-    //setting bottom and upper edge
-    for(i = 0; i < NUM+1; i++) {
-        psi[i][0] = 1;
-        psi[i][NUM] = 0;
-
-        File << i << ";" << 0 << ";" << psi[i][0] << endl;
-        File << i << ";" << NUM << ";" << psi[i][NUM] << endl;
-    }
-    */
 }
 
 void jacobi () {
@@ -122,4 +99,38 @@ void jacobi () {
     }
 }
 
+double omega(double x, double y){
+    return 1;
+}
+
+double integration(double x, double y){
+    double result = 0;
+    int i = 0;
+    do{ //TROUBLE HERE
+        for(int j = 0; j < 2*y; j+=2){
+            result = result + speed[i][j] + speed[i][j+1];
+        }
+        i++;
+    }
+    while(i < x);
+    cout << result << endl;
+    return result;
+}
+
+void convert(){
+    for(int i = 0; i < NUM+1; i++){
+        for(int j = 0; j < NUM+1; j++){
+            psi[i][j] = integration(i, j);
+        }
+    }
+}
+
+void set_speed(){
+    for(int i = 0; i < 2*NUM+2; i+=2){
+        speed[0][i] = 1;
+        speed[0][i+1] = 0;
+        speed[NUM][i] = -1;
+        speed[NUM][i+1] = 0;
+    }
+}
 
