@@ -120,7 +120,7 @@ double integration(double x, double y){
 void convert(){
     for(int i = 0; i < NUM+1; i++){
         for(int j = 0; j < NUM+1; j++){
-            psi[i][j] = integration(i, j);
+            psi[j][i] = integration(i, j);
         }
     }
 }
