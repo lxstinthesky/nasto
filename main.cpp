@@ -65,10 +65,6 @@ void jacobi () {
     double u, v; //x and y component of velocity
     double a, r; //polar coordinates for velocity - required for origin
     k = 0;
-    /*
-     * psin[i][j] = 1.0/4.0*(psi[i + 1][j] + psin[i - 1][j] + psi[i][j + 1] + psin[i][j - 1]);
-        error += abs(psin[i][j] - psi[i][j]);
-     */
 
     do {
         error = 0.0;
@@ -105,22 +101,30 @@ double omega(double x, double y){
 
 double integration(double x, double y){
     double result = 0;
+    /*
     int i = 0;
     do{ //TROUBLE HERE
-        for(int j = 0; j < 2*y; j+=2){
+        for(int j = 0; j < 2*y+2; j+=2){
             result = result + speed[i][j] + speed[i][j+1];
         }
         i++;
     }
-    while(i < x);
+    while(i < x+1);
     cout << result << endl;
+     */
+    for(int i = 0; i <= x; i++){
+        for(int j = 0; j <= 2*y; j+=2){
+            result = result + speed[i][j] + speed[i][j+1];
+        }
+        cout << result << endl;
+    }
     return result;
 }
 
 void convert(){
     for(int i = 0; i < NUM+1; i++){
         for(int j = 0; j < NUM+1; j++){
-            psi[j][i] = integration(i, j);
+            psi[i][j] = integration(i, j);
         }
     }
 }
