@@ -10,7 +10,7 @@
 //physical variable declaration here
 #define ETA 1 //viscosity
 #define RHO 1 //density
-#define NUM 10
+#define NUM 100
 
 using namespace std;
 
@@ -25,7 +25,7 @@ double speed[NUM+1][2*(NUM+1)] = {{0}};
 void init();
 void jacobi();
 double omega(double, double);
-double integration(double, double);
+double integration(int, int);
 void convert();
 void set_speed();
 
@@ -48,8 +48,12 @@ int main() {
 
 //auxiliary function implementation here
 void init(){
-    set_speed();
-    convert();
+
+    for(int i = 0; i < NUM+1; i++){
+        psi[0][i] = 1;
+        psi[NUM][i] = 1;
+    }
+
 
     for(int i = 0; i < NUM+1; i++){
         for(int j = 0; j < NUM+1; j++){
@@ -68,8 +72,8 @@ void jacobi () {
 
     do {
         error = 0.0;
-        for (j = 1; j < NUM; j++) {
-            for (i = 1; i < NUM; i++) {
+        for (i = 1; i < NUM; i++) {
+            for (j = 1; j < NUM; j++) {
                 psin[i][j] = 1.0/4.0*(psi[i + 1][j] + psin[i - 1][j] + psi[i][j + 1] + psin[i][j - 1]);
                 error += abs(psin[i][j] - psi[i][j]);
             }}
@@ -99,9 +103,8 @@ double omega(double x, double y){
     return 1;
 }
 
-double integration(double x, double y){
+double integration(int x, int y){
     double result = 0;
-    /*
     int i = 0;
     do{ //TROUBLE HERE
         for(int j = 0; j < 2*y+2; j+=2){
@@ -109,22 +112,16 @@ double integration(double x, double y){
         }
         i++;
     }
-    while(i < x+1);
-    cout << result << endl;
-     */
-    for(int i = 0; i <= x; i++){
-        for(int j = 0; j <= 2*y; j+=2){
-            result = result + speed[i][j] + speed[i][j+1];
-        }
-        cout << result << endl;
-    }
+    while(i < x);
+
+
     return result;
 }
 
 void convert(){
     for(int i = 0; i < NUM+1; i++){
         for(int j = 0; j < NUM+1; j++){
-            psi[i][j] = integration(i, j);
+            psi[j][i] = integration(i, j);
         }
     }
 }
@@ -136,5 +133,6 @@ void set_speed(){
         speed[NUM][i] = -1;
         speed[NUM][i+1] = 0;
     }
+
 }
 
